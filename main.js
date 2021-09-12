@@ -23,7 +23,7 @@ function submitIssue(e) {
 
 const closeIssue = id => {
   const issues = JSON.parse(localStorage.getItem('issues'));
-  const currentIssue = issues.find(issue => parseInt(issue.id) === id);
+  const currentIssue = issues.find(issue => parseInt(issue.id) === id); //এখানে parseInt করা ছিল না
   currentIssue.status = 'Closed';
   localStorage.setItem('issues', JSON.stringify(issues));
   fetchIssues();
@@ -31,14 +31,14 @@ const closeIssue = id => {
 
 const deleteIssue = id => {
   const issues = JSON.parse(localStorage.getItem('issues'));
-  const remainingIssues = issues.filter(issue => parseInt(issue.id) !== id)
+  const remainingIssues = issues.filter(issue => parseInt(issue.id) !== id)//এখানে parseInt করা ছিল না । এবং issue => parseInt(issue.id) এর মধ্যে issue এটা ছিল না।
   localStorage.setItem('issues', JSON.stringify(remainingIssues));
-  window.location.reload(true);
+  window.location.reload(true);// এটা দিয়া page reload করা হয় যখন delete button  এ click করা হয়।
 }
 
 const fetchIssues = () => {
   const issues = JSON.parse(localStorage.getItem('issues'));
-  if (issues === null) {
+  if (issues === null) { // এই  condition অ্যাড করা হয়েছে যাতে করে data load হওয়ার আগে error  না দেয় 
     console.log('no result found')
     return;
   }
@@ -59,3 +59,4 @@ const fetchIssues = () => {
                               </div>`;
   }
 }
+// 58 নং লাইন এ onclick  এ ভুল ছিল
